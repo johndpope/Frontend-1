@@ -1,0 +1,22 @@
+PODS:
+  - Frontend (0.1.0)
+  - Nimble (3.2.0)
+  - Quick (0.9.3)
+
+DEPENDENCIES:
+  - Frontend (from `../`)
+  - Nimble (~> 3.0)
+  - Quick (~> 0.8)
+
+EXTERNAL SOURCES:
+  Frontend:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  Frontend: a502d6e68928c1a809ecb8b534d7406647c52fad
+  Nimble: 703854335d181df169bbca9c97117b5cf8c47c1d
+  Quick: 13a2a2b19a5d8e3ed4fd0c36ee46597fd77ebf71
+
+PODFILE CHECKSUM: b2d3fd0414a24431eddea255b2140f8684b629d3
+
+COCOAPODS: 1.0.1
