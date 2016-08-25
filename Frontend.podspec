@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
   s.source           = { :git => 'https://github.com/pepibumur/Frontend.git', :tag => s.version.to_s }
   s.ios.deployment_target = '8.0'
   s.source_files = 'Frontend/Classes/**/*'
-  s.dependency 'Swifter', '~> 1.2'
+  s.dependency 'GCDWebServer', '~> 3.3'
   s.dependency 'NSURL+QueryDictionary', '~> 1.2'
   s.dependency 'SwiftyJSON', '~> 2.3'
 end
