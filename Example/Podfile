@@ -1,0 +1,7 @@
+use_frameworks!
+target 'Frontend_Tests' do
+  pod 'Frontend', :path => '../'
+  
+  pod 'Quick', '~> 0.8'
+  pod 'Nimble', '~> 3.0'
+end
