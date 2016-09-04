@@ -1,4 +1,5 @@
 import Foundation
+import Zip
 
 internal class FrontendFileManager {
     
@@ -7,21 +8,18 @@ internal class FrontendFileManager {
     internal let path: String
     internal let zipPath: String
     internal let fileManager: NSFileManager
+    internal let zipExtractor: ZipExtractor
     
     // MARK: - Init
     
-    internal init(path: String, zipPath: String, fileManager: NSFileManager = NSFileManager.defaultManager()) {
+    internal init(path: String, zipPath: String, fileManager: NSFileManager = NSFileManager.defaultManager(), zipExtractor: ZipExtractor = ZipExtractor()) {
         self.path = path
         self.zipPath = zipPath
         self.fileManager = fileManager
+        self.zipExtractor = zipExtractor
     }
     
     // MARK: - Internal
-    
-    internal func file(atPath path: String) -> NSData? {
-        let localPath = NSString(string: self.path).stringByAppendingPathComponent(path)
-        return NSData(contentsOfFile: localPath)
-    }
     
     internal func currentPath() -> String {
         return NSString(string: self.path).stringByAppendingPathComponent("Current")
@@ -54,7 +52,9 @@ internal class FrontendFileManager {
     }
     
     internal func replaceWithZipped() throws {
-        //TODO
+        let zipFilePath: NSURL = NSURL(fileURLWithPath: self.zipPath)
+        let destinationPath: NSURL = NSURL(fileURLWithPath: self.currentPath())
+        try self.zipExtractor.unzipFile(zipFilePath, destination: destinationPath, overwrite: true, password: nil, progress: nil)
     }
     
     // MARK: - Private
