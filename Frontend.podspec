@@ -11,4 +11,5 @@ Pod::Spec.new do |s|
   s.dependency 'GCDWebServer', '~> 3.3'
   s.dependency 'NSURL+QueryDictionary', '~> 1.2'
   s.dependency 'SwiftyJSON', '~> 2.3'
+  s.dependency 'Zip', '~> 0.4'
 end

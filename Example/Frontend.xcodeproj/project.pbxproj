@@ -8,11 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		0A9774FF7FD700BAF9843103 /* Pods_Frontend_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CACC409EA4C65CA5CCB0A001 /* Pods_Frontend_Tests.framework */; };
+		2378FE961D7C28F500868236 /* FrontendControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2378FE951D7C28F500868236 /* FrontendControllerSpec.swift */; };
 		23B571191D6F43DB00578CB1 /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 23B571181D6F43DB00578CB1 /* manifest.json */; };
+		23FA90111D7ADE5300BB8185 /* FrontendConfigurationSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23FA90101D7ADE5300BB8185 /* FrontendConfigurationSpec.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2378FE951D7C28F500868236 /* FrontendControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrontendControllerSpec.swift; sourceTree = "<group>"; };
 		23B571181D6F43DB00578CB1 /* manifest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = manifest.json; sourceTree = "<group>"; };
+		23FA90101D7ADE5300BB8185 /* FrontendConfigurationSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrontendConfigurationSpec.swift; sourceTree = "<group>"; };
 		2D826D5577A1CEB73CAA7EC4 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		607FACE51AFB9204008FA782 /* Frontend_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Frontend_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -46,8 +50,18 @@
 		23B571171D6F43A300578CB1 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				23FA900F1D7ADE4100BB8185 /* Models */,
+				2378FE951D7C28F500868236 /* FrontendControllerSpec.swift */,
 			);
 			path = Sources;
+			sourceTree = "<group>";
+		};
+		23FA900F1D7ADE4100BB8185 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				23FA90101D7ADE5300BB8185 /* FrontendConfigurationSpec.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		607FACC71AFB9204008FA782 = {
@@ -146,7 +160,7 @@
 		607FACC81AFB9204008FA782 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0720;
+				LastSwiftUpdateCheck = 0730;
 				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = CocoaPods;
 				TargetAttributes = {
@@ -283,6 +297,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2378FE961D7C28F500868236 /* FrontendControllerSpec.swift in Sources */,
+				23FA90111D7ADE5300BB8185 /* FrontendConfigurationSpec.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -375,6 +391,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = ABA865A85BF3067784D1E743 /* Pods-Frontend_Tests.debug.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -387,6 +404,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -394,6 +412,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C96814657971D047AC904073 /* Pods-Frontend_Tests.release.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",

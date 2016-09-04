@@ -1,52 +1,94 @@
 import Foundation
 import SwiftyJSON
-/**
- *  Manifest
- */
-internal struct Manifest {
+
+public struct Manifest {
     
-    /**
-     *  Manifes File
-     */
-    internal struct File {
-        internal let path: String
-        internal let hash: String
+    public struct File: Equatable {
+        
+        public let path: String
+        public let hash: String
+        
+        public init(path: String, hash: String) {
+            self.path = path
+            self.hash = hash
+        }
     }
     
     // MARK: - Attributes
     
-    internal let baseUrl: String
-    internal let commit: String?
-    internal let buildAuthor: String?
-    internal let gitBranch: String?
-    internal let timestamp: Int?
-    internal let files: [Manifest.File]
+    public let baseUrl: String
+    public let commit: String?
+    public let buildAuthor: String?
+    public let gitBranch: String?
+    public let timestamp: Int?
+    public let files: [Manifest.File]
     
-}
-
-// MARK: - Extension - JSON Inits
-
-internal extension Manifest {
     
-    init(baseUrl: String, json:JSON) {
+    // MARK: - Init
+    
+    public init(baseUrl: String,
+                commit: String?,
+                buildAuthor: String?,
+                gitBranch: String?,
+                timestamp: Int?,
+                files: [Manifest.File]) {
         self.baseUrl = baseUrl
-        self.commit = json["commit"].stringValue
-        self.buildAuthor = json["build_author"].stringValue
-        self.gitBranch = json["git_branch"].stringValue
-        self.timestamp = json["timestamp"].intValue
-        var files: [Manifest.File] = []
-        for element in json["files"].enumerate() {
-            let path: String = element.element.0
-            let hash: String = element.element.1.stringValue
-            let file: File = File(path: path, hash: hash)
-            files.append(file)
-        }
+        self.commit = commit
+        self.buildAuthor = buildAuthor
+        self.gitBranch = gitBranch
+        self.timestamp = timestamp
         self.files = files
     }
     
-    init(json: JSON) {
-        let baseUrl = json["base_url"].string!
-        self.init(baseUrl: baseUrl, json: json)
+}
+
+public func == (lhs: Manifest.File, rhs: Manifest.File) -> Bool {
+    return lhs.hash == rhs.hash && lhs.path == rhs.path
+}
+
+// MARK: - Manifest Extension (NSData)
+
+internal extension Manifest {
+    
+    internal static var LocalName: String = "app.json"
+    
+    internal init(data: NSData) throws {
+        let json = JSON(data: data)
+        guard let baseUrl = json["base_url"].string else { throw FrontendManifestError.InvalidManifest("Missing key: base_url") }
+        let commit = json["commit"].string
+        let buildAuthor = json["build_author"].string
+        let gitBranch = json["git_branch"].string
+        let timestamp = json["timestamp"].int
+        let files = json["files"].arrayValue.flatMap { (json) -> Manifest.File? in
+            guard let path = json["path"].string, hash = json["hash"].string else { return nil }
+            return Manifest.File(path: path, hash: hash)
+        }
+        self.init(baseUrl: baseUrl,
+                        commit: commit,
+                        buildAuthor: buildAuthor,
+                        gitBranch: gitBranch,
+                        timestamp: timestamp,
+                        files: files)
+    }
+    
+    internal func toData() throws -> NSData {
+        var dictionary = [String: AnyObject]()
+        dictionary["base_url"] = self.baseUrl
+        if let commit = self.commit { dictionary["commit"] = commit }
+        if let buildAuthor = self.buildAuthor { dictionary["build_author"] = buildAuthor }
+        if let gitBranch = self.gitBranch { dictionary["git_branch"] = gitBranch }
+        if let timestamp = self.timestamp { dictionary["timestamp"] = timestamp }
+        var files: [[String: AnyObject]] = []
+        self.files.forEach { file in
+         files.append(["path": file.path, "hash": file.hash])
+        }
+        dictionary["files"] = files
+        do {
+            return try NSJSONSerialization.dataWithJSONObject(dictionary, options: [])
+        }
+        catch {
+            throw FrontendManifestError.UnconvertibleJSON
+        }
     }
     
 }

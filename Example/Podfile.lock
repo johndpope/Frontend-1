@@ -3,6 +3,7 @@ PODS:
     - GCDWebServer (~> 3.3)
     - NSURL+QueryDictionary (~> 1.2)
     - SwiftyJSON (~> 2.3)
+    - Zip (~> 0.4)
   - GCDWebServer (3.3.3):
     - GCDWebServer/Core (= 3.3.3)
   - GCDWebServer/Core (3.3.3)
@@ -10,6 +11,7 @@ PODS:
   - NSURL+QueryDictionary (1.2.0)
   - Quick (0.9.3)
   - SwiftyJSON (2.3.2)
+  - Zip (0.4.3)
 
 DEPENDENCIES:
   - Frontend (from `../`)
@@ -21,12 +23,13 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  Frontend: 4c02fdc91fe670852ae9f8faabaf5df3a70630ad
+  Frontend: f3d7be021b218bc4ab1e80b895b3f305ca04f0a2
   GCDWebServer: 1c39a1f0763e4eb492bee021e4270fce097d3555
   Nimble: 703854335d181df169bbca9c97117b5cf8c47c1d
   NSURL+QueryDictionary: bae616404e2adf6409d3d5c02a093cbf44c8a236
   Quick: 13a2a2b19a5d8e3ed4fd0c36ee46597fd77ebf71
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
+  Zip: 670419a5ba9faaf5f24ed3650c4c38b4136e996b
 
 PODFILE CHECKSUM: b2d3fd0414a24431eddea255b2140f8684b629d3
 
