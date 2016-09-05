@@ -11,6 +11,12 @@
 		2378FE961D7C28F500868236 /* FrontendControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2378FE951D7C28F500868236 /* FrontendControllerSpec.swift */; };
 		2378FE991D7C341600868236 /* FrontendFileManagerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2378FE981D7C341600868236 /* FrontendFileManagerSpec.swift */; };
 		2378FE9B1D7C35D000868236 /* Data.zip in Resources */ = {isa = PBXBuildFile; fileRef = 2378FE9A1D7C35D000868236 /* Data.zip */; };
+		2378FEA01D7C3C9B00868236 /* FrontendServerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2378FE9F1D7C3C9B00868236 /* FrontendServerSpec.swift */; };
+		237CD77D1D7DF40F00BA897B /* FrontendConfiguratorSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237CD77C1D7DF40F00BA897B /* FrontendConfiguratorSpec.swift */; };
+		237CD7871D7DFB8F00BA897B /* FrontendRequestDispatcherSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237CD7861D7DFB8F00BA897B /* FrontendRequestDispatcherSpec.swift */; };
+		237CD7891D7DFBC500BA897B /* FrontendResponseMapperSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237CD7881D7DFBC500BA897B /* FrontendResponseMapperSpec.swift */; };
+		237CD78B1D7DFBDE00BA897B /* FrontendProxyRequestMapperSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237CD78A1D7DFBDE00BA897B /* FrontendProxyRequestMapperSpec.swift */; };
+		237CD7911D7DFD5A00BA897B /* FrontendRequestMapperSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237CD7901D7DFD5A00BA897B /* FrontendRequestMapperSpec.swift */; };
 		23B571191D6F43DB00578CB1 /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 23B571181D6F43DB00578CB1 /* manifest.json */; };
 		23FA90111D7ADE5300BB8185 /* FrontendConfigurationSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23FA90101D7ADE5300BB8185 /* FrontendConfigurationSpec.swift */; };
 /* End PBXBuildFile section */
@@ -19,6 +25,12 @@
 		2378FE951D7C28F500868236 /* FrontendControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrontendControllerSpec.swift; sourceTree = "<group>"; };
 		2378FE981D7C341600868236 /* FrontendFileManagerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrontendFileManagerSpec.swift; sourceTree = "<group>"; };
 		2378FE9A1D7C35D000868236 /* Data.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = Data.zip; sourceTree = "<group>"; };
+		2378FE9F1D7C3C9B00868236 /* FrontendServerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrontendServerSpec.swift; sourceTree = "<group>"; };
+		237CD77C1D7DF40F00BA897B /* FrontendConfiguratorSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrontendConfiguratorSpec.swift; sourceTree = "<group>"; };
+		237CD7861D7DFB8F00BA897B /* FrontendRequestDispatcherSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrontendRequestDispatcherSpec.swift; sourceTree = "<group>"; };
+		237CD7881D7DFBC500BA897B /* FrontendResponseMapperSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrontendResponseMapperSpec.swift; sourceTree = "<group>"; };
+		237CD78A1D7DFBDE00BA897B /* FrontendProxyRequestMapperSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrontendProxyRequestMapperSpec.swift; sourceTree = "<group>"; };
+		237CD7901D7DFD5A00BA897B /* FrontendRequestMapperSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrontendRequestMapperSpec.swift; sourceTree = "<group>"; };
 		23B571181D6F43DB00578CB1 /* manifest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = manifest.json; sourceTree = "<group>"; };
 		23FA90101D7ADE5300BB8185 /* FrontendConfigurationSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrontendConfigurationSpec.swift; sourceTree = "<group>"; };
 		2D826D5577A1CEB73CAA7EC4 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
@@ -51,6 +63,19 @@
 			path = FileManager;
 			sourceTree = "<group>";
 		};
+		2378FE9E1D7C3C9400868236 /* Server */ = {
+			isa = PBXGroup;
+			children = (
+				2378FE9F1D7C3C9B00868236 /* FrontendServerSpec.swift */,
+				237CD77C1D7DF40F00BA897B /* FrontendConfiguratorSpec.swift */,
+				237CD7861D7DFB8F00BA897B /* FrontendRequestDispatcherSpec.swift */,
+				237CD7881D7DFBC500BA897B /* FrontendResponseMapperSpec.swift */,
+				237CD78A1D7DFBDE00BA897B /* FrontendProxyRequestMapperSpec.swift */,
+				237CD7901D7DFD5A00BA897B /* FrontendRequestMapperSpec.swift */,
+			);
+			path = Server;
+			sourceTree = "<group>";
+		};
 		23B571161D6F439800578CB1 /* Fixtures */ = {
 			isa = PBXGroup;
 			children = (
@@ -63,6 +88,7 @@
 		23B571171D6F43A300578CB1 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				2378FE9E1D7C3C9400868236 /* Server */,
 				2378FE971D7C340D00868236 /* FileManager */,
 				23FA900F1D7ADE4100BB8185 /* Models */,
 				2378FE951D7C28F500868236 /* FrontendControllerSpec.swift */,
@@ -313,8 +339,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				2378FE991D7C341600868236 /* FrontendFileManagerSpec.swift in Sources */,
+				237CD7871D7DFB8F00BA897B /* FrontendRequestDispatcherSpec.swift in Sources */,
+				2378FEA01D7C3C9B00868236 /* FrontendServerSpec.swift in Sources */,
+				237CD78B1D7DFBDE00BA897B /* FrontendProxyRequestMapperSpec.swift in Sources */,
 				2378FE961D7C28F500868236 /* FrontendControllerSpec.swift in Sources */,
 				23FA90111D7ADE5300BB8185 /* FrontendConfigurationSpec.swift in Sources */,
+				237CD77D1D7DF40F00BA897B /* FrontendConfiguratorSpec.swift in Sources */,
+				237CD7911D7DFD5A00BA897B /* FrontendRequestMapperSpec.swift in Sources */,
+				237CD7891D7DFBC500BA897B /* FrontendResponseMapperSpec.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
