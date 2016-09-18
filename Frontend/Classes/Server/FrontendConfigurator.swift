@@ -34,7 +34,7 @@ internal class FrontendConfigurator {
     
     private func configureProxy(server server: GCDWebServer) {
         server.addHandlerWithMatchBlock({ (method, url, headers, path, query) -> GCDWebServerRequest! in
-            return self.proxyRequestMapper.map(method: method, url: url, headers: headers, path: path, query: query, proxyResource: self.proxyResources)
+            return self.proxyRequestMapper.map(method: method, url: url, headers: headers, path: path, query: query, proxyResources: self.proxyResources)
         }, asyncProcessBlock: { (request, completionBlock) in
                 self.requestDispatcher.dispatch(request: request, completion: completionBlock)
         })

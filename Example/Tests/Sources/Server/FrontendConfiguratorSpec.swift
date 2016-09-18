@@ -80,7 +80,7 @@ private class MockProxyRequestMapper: FrontendProxyRequestMapper {
     var mappedPath: String!
     var mappedQuery: [NSObject: AnyObject]!
     
-    private override func map(method method: String!, url: NSURL!, headers: [NSObject : AnyObject]!, path: String!, query: [NSObject : AnyObject]!, proxyResource: [ProxyResource]) -> GCDWebServerRequest? {
+    private override func map(method method: String!, url: NSURL!, headers: [NSObject : AnyObject]!, path: String!, query: [NSObject : AnyObject]!, proxyResources proxyResource: [ProxyResource]) -> GCDWebServerRequest? {
         self.mappedMethod = method
         self.mappedURL = url
         self.mappedHeaders = headers
