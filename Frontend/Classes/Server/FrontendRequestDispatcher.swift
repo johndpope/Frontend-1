@@ -23,10 +23,8 @@ internal class FrontendRequestDispatcher {
     
     internal func dispatch(request request: GCDWebServerRequest, completion: GCDWebServerCompletionBlock) {
         self.session.dataTaskWithRequest(self.requestMapper.map(request: request)) { (data, response, error) in
-            if let response = response {
-                completion(self.responseMapper.map(data: data, response: response))
-            }
-        }
+            completion(self.responseMapper.map(data: data, response: response, error: error))
+        }.resume()
     }
    
 }
