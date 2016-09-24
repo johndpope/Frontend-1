@@ -4,17 +4,17 @@ internal class FrontendDownloader {
     
     // MARK: - Properties
     
-    internal let session: NSURLSession
+    internal let session: URLSession
     
     // MARK: - Init
     
-    internal init(session: NSURLSession = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())) {
+    internal init(session: URLSession = URLSession(configuration: URLSessionConfiguration.default)) {
         self.session = session
     }
     
     // MARK: - Internal
     
-    internal func download(manifestUrl manifestUrl: String, baseUrl: String, manifestMapper: ManifestMapper, downloadPath: String, progress: (downloaded: Int, total: Int) -> Void, completion: NSError? -> Void) {
+    internal func download(manifestUrl: String, baseUrl: String, manifestMapper: @escaping ManifestMapper, downloadPath: String, progress: @escaping (_ downloaded: Int, _ total: Int) -> Void, completion: @escaping (Error?) -> Void) {
         self.downloadManifest(manifestUrl: manifestUrl, baseUrl: baseUrl, manifestMapper: manifestMapper) { (manifest, error) in
             if let error = error { completion(error)
             } else if let manifest = manifest {
@@ -28,7 +28,7 @@ internal class FrontendDownloader {
     
     // MARK: - Private
     
-    private func downloadFiles(manifest manifest: Manifest, downloadPath: String, completion: NSError? -> Void, progress: (downloaded: Int, total: Int) -> Void) {
+    fileprivate func downloadFiles(manifest: Manifest, downloadPath: String, completion: (NSError?) -> Void, progress: (_ downloaded: Int, _ total: Int) -> Void) {
         var downloaded: [Manifest.File] = []
         let files: [Manifest.File] = manifest.files
         for file in files {
@@ -41,18 +41,18 @@ internal class FrontendDownloader {
         }
     }
     
-    private func downloadManifest(manifestUrl manifestUrl: String, baseUrl: String, manifestMapper: ManifestMapper, completion: (Manifest?, NSError?) -> Void) {
-        let request: NSMutableURLRequest = NSMutableURLRequest(URL: NSURL(string: manifestUrl)!)
+    fileprivate func downloadManifest(manifestUrl: String, baseUrl: String, manifestMapper: @escaping ManifestMapper, completion: @escaping (Manifest?, Error?) -> Void) {
+        var request: URLRequest = URLRequest(url: URL(string: manifestUrl)!)
         request.addValue("application/json", forHTTPHeaderField: "Accept")
-        self.session.dataTaskWithRequest(request) { (data, _, error) in
+        self.session.dataTask(with: request) { (data, response, error) in
             if let error = error {
                 completion(nil, error)
                 return
             }
             guard let data = data else { return }
             do {
-                let json = try NSJSONSerialization.JSONObjectWithData(data, options: [])
-                completion(manifestMapper(baseUrl)(json), nil)
+                let json = try JSONSerialization.jsonObject(with: data, options: [])
+                completion(manifestMapper(baseUrl)(json as AnyObject), nil)
             } catch {
                 completion(nil, error as NSError)
             }

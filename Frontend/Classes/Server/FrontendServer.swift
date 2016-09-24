@@ -14,7 +14,7 @@ internal class FrontendServer {
     // MARK: - Init
     
     internal convenience init(path: String, port: UInt, proxyResources: [ProxyResource]) {
-        let server = GCDWebServer()
+        let server = GCDWebServer()!
         let configurator = FrontendConfigurator(proxyResources: proxyResources)
         self.init(path: path, port: port, proxyResources: proxyResources, server: server, configurator: configurator)
     }
@@ -31,7 +31,7 @@ internal class FrontendServer {
     
     internal func start() -> Bool {
         self.configurator.configure(directoryPath: self.path, server: self.server)
-        return self.server.startWithPort(self.port, bonjourName: nil)
+        return self.server.start(withPort: self.port, bonjourName: nil)
     }
     
 }

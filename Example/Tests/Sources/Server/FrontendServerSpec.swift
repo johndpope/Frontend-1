@@ -60,7 +60,7 @@ private class MockGCDServer: GCDWebServer {
     var startedPort: UInt!
     var startedBonjourName: String!
     
-    private override func startWithPort(port: UInt, bonjourName name: String!) -> Bool {
+    fileprivate override func start(withPort port: UInt, bonjourName name: String!) -> Bool {
         self.startedPort = port
         self.startedBonjourName = name
         return true
@@ -73,7 +73,7 @@ private class MockFrontendConfigurator: FrontendConfigurator {
     var configuredDirectoryPath: String!
     var configuredServer: GCDWebServer!
     
-    private override func configure(directoryPath directoryPath: String, server: GCDWebServer) {
+    fileprivate override func configure(directoryPath: String, server: GCDWebServer) {
         self.configuredDirectoryPath = directoryPath
         self.configuredServer = server
     }

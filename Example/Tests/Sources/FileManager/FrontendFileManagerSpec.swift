@@ -7,9 +7,9 @@ import Zip
 
 private class TestClass: NSObject {}
 
-private func unzip(name name: String, path: String) {
-    let url = NSBundle(forClass: TestClass.self).URLForResource(name, withExtension: "zip")
-    try! Zip.unzipFile(url!, destination: NSURL(fileURLWithPath: path), overwrite: true, password: nil, progress: nil)
+private func unzip(name: String, path: String) {
+    let url = Bundle(for: TestClass.self).url(forResource: name, withExtension: "zip")
+    try! Zip.unzipFile(url!, destination: URL(fileURLWithPath: path), overwrite: true, password: nil, progress: nil)
 }
 
 class FrontendFileManagerSpec: QuickSpec {
@@ -32,13 +32,13 @@ class FrontendFileManagerSpec: QuickSpec {
         
         describe("-currentPath") {
             it("should return the correct value") {
-                expect(subject.currentPath()) == "\(path)/Current"
+                expect(subject.currentPath()) == "\(path!)/Current"
             }
         }
         
         describe("-enqueuedPath") {
             it("should return the correct value") {
-                expect(subject.enqueuedPath()) == "\(path)/Enqueued"
+                expect(subject.enqueuedPath()) == "\(path!)/Enqueued"
             }
         }
         
@@ -84,10 +84,10 @@ class FrontendFileManagerSpec: QuickSpec {
                 try! subject.replaceWithZipped()
             }
             it("should take the correct zip") {
-                expect(zipExtractor.zipUrl) == NSURL(fileURLWithPath: subject.zipPath)
+                expect(zipExtractor.zipUrl) == URL(fileURLWithPath: subject.zipPath)
             }
             it("should extract into the correct directory") {
-                expect(zipExtractor.destinationUrl) == NSURL(fileURLWithPath: subject.currentPath())
+                expect(zipExtractor.destinationUrl) == URL(fileURLWithPath: subject.currentPath())
             }
             it("should extract it overwriting the existing content") {
                 expect(zipExtractor.overwrite) == true
@@ -100,26 +100,26 @@ class FrontendFileManagerSpec: QuickSpec {
 
 private class MockZipExtractor: ZipExtractor {
     
-    var zipUrl: NSURL!
-    var destinationUrl: NSURL!
+    var zipUrl: URL!
+    var destinationUrl: URL!
     var overwrite: Bool!
     
-    private override func unzipFile(zipFilePath: NSURL, destination: NSURL, overwrite: Bool, password: String?, progress: ((progress: Double) -> ())?) throws {
+    fileprivate override func unzipFile(zipFilePath: URL, destination: URL, overwrite: Bool, password: String?, progress: ((_ progress: Double) -> ())?) throws {
         self.zipUrl = zipFilePath
         self.destinationUrl = destination
         self.overwrite = overwrite
     }
 }
 
-private class MockFileManager: NSFileManager {
+private class MockFileManager: FileManager {
     var removedAtPath: String!
     var movedFrom: String!
     var movedTo: String!
-    private override func removeItemAtPath(path: String) throws {
+    fileprivate override func removeItem(atPath path: String) throws {
         self.removedAtPath = path
     }
     
-    private override func moveItemAtPath(srcPath: String, toPath dstPath: String) throws {
+    fileprivate override func moveItem(atPath srcPath: String, toPath dstPath: String) throws {
         self.movedFrom = srcPath
         self.movedTo = dstPath
     }

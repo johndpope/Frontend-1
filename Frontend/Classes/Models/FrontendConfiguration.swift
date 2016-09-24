@@ -20,7 +20,7 @@ public struct FrontendConfiguration {
                 zipPath: String,
                 proxyResources: [ProxyResource] = [],
                 localPath: String = FrontendConfiguration.defaultDirectory(),
-                manifestMapper: ManifestMapper = DefaultManifestMapper) {
+                manifestMapper: @escaping ManifestMapper = DefaultManifestMapper) {
         self.manifestUrl = manifestUrl
         self.baseUrl = baseUrl
         self.localPath = localPath
@@ -33,8 +33,8 @@ public struct FrontendConfiguration {
     // MARK: - Private
     
     internal static func defaultDirectory() -> String {
-        let documentsDirectory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]
-        return NSString(string: documentsDirectory).stringByAppendingPathComponent("Frontend")
+        let documentsDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+        return NSString(string: documentsDirectory).appendingPathComponent("Frontend")
     }
     
 }

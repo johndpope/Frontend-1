@@ -3,7 +3,7 @@ import GCDWebServer
 
 internal class FrontendResponseMapper {
     
-    internal func map(data data: NSData?, response: NSURLResponse?, error: NSError?) -> GCDWebServerResponse {
+    internal func map(data data: Data?, response: URLResponse?, error: Error?) -> GCDWebServerResponse {
         return GCDWebServerResponse()
     }
     

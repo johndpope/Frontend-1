@@ -7,12 +7,12 @@ internal class FrontendFileManager {
     
     internal let path: String
     internal let zipPath: String
-    internal let fileManager: NSFileManager
+    internal let fileManager: FileManager
     internal let zipExtractor: ZipExtractor
     
     // MARK: - Init
     
-    internal init(path: String, zipPath: String, fileManager: NSFileManager = NSFileManager.defaultManager(), zipExtractor: ZipExtractor = ZipExtractor()) {
+    internal init(path: String, zipPath: String, fileManager: FileManager = FileManager.default, zipExtractor: ZipExtractor = ZipExtractor()) {
         self.path = path
         self.zipPath = zipPath
         self.fileManager = fileManager
@@ -22,11 +22,11 @@ internal class FrontendFileManager {
     // MARK: - Internal
     
     internal func currentPath() -> String {
-        return NSString(string: self.path).stringByAppendingPathComponent("Current")
+        return NSString(string: self.path).appendingPathComponent("Current")
     }
     
     internal func enqueuedPath() -> String {
-        return NSString(string: self.path).stringByAppendingPathComponent("Enqueued")
+        return NSString(string: self.path).appendingPathComponent("Enqueued")
     }
     
     internal func currentFrontendManifest() -> Manifest? {
@@ -46,30 +46,30 @@ internal class FrontendFileManager {
     }
     
     internal func replaceWithEnqueued() throws {
-        if !self.enqueuedAvailable() { throw FrontendFileManagerError.NotAvailable }
-        try self.fileManager.removeItemAtPath(self.currentPath())
-        try self.fileManager.moveItemAtPath(self.enqueuedPath(), toPath: self.currentPath())
+        if !self.enqueuedAvailable() { throw FrontendFileManagerError.notAvailable }
+        try self.fileManager.removeItem(atPath: self.currentPath())
+        try self.fileManager.moveItem(atPath: self.enqueuedPath(), toPath: self.currentPath())
     }
     
     internal func replaceWithZipped() throws {
-        let zipFilePath: NSURL = NSURL(fileURLWithPath: self.zipPath)
-        let destinationPath: NSURL = NSURL(fileURLWithPath: self.currentPath())
-        try self.zipExtractor.unzipFile(zipFilePath, destination: destinationPath, overwrite: true, password: nil, progress: nil)
+        let zipFilePath: URL = URL(fileURLWithPath: self.zipPath)
+        let destinationPath: URL = URL(fileURLWithPath: self.currentPath())
+        try self.zipExtractor.unzipFile(zipFilePath: zipFilePath, destination: destinationPath, overwrite: true, password: nil, progress: nil)
     }
     
     // MARK: - Private
     
-    private func manifest(atPath path: String) -> Manifest? {
-        let manifestPath = NSString(string: path).stringByAppendingPathComponent(Manifest.LocalName)
-        guard let data = NSData(contentsOfFile: manifestPath) else { return nil }
+    fileprivate func manifest(atPath path: String) -> Manifest? {
+        let manifestPath = NSString(string: path).appendingPathComponent(Manifest.LocalName)
+        guard let data = try? Data(contentsOf: URL(fileURLWithPath: manifestPath)) else { return nil }
         return try? Manifest(data: data)
     }
     
-    private func frontend(atPath path: String) -> Bool {
+    fileprivate func frontend(atPath path: String) -> Bool {
         guard let manifest = self.manifest(atPath: path) else { return false }
         for file in manifest.files {
-            let filePath = NSString(string: path).stringByAppendingPathComponent(file.path)
-            if !self.fileManager.fileExistsAtPath(filePath) {
+            let filePath = NSString(string: path).appendingPathComponent(file.path)
+            if !self.fileManager.fileExists(atPath: filePath) {
                 return false
             }
         }

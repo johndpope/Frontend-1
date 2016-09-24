@@ -1,15 +1,15 @@
 import Foundation
 
-public enum FrontendManifestError: ErrorType {
-    case InvalidManifest(String)
-    case UnconvertibleJSON
+public enum FrontendManifestError: Error {
+    case invalidManifest(String)
+    case unconvertibleJSON
 }
 
-public enum FrontendFileManagerError: ErrorType {
-    case NotAvailable
+public enum FrontendFileManagerError: Error {
+    case notAvailable
 }
 
-public enum FrontendControllerError: ErrorType, Equatable {
-    case AlreadyDownloading
-    case NoFrontendAvailable
+public enum FrontendControllerError: Error, Equatable {
+    case alreadyDownloading
+    case noFrontendAvailable
 }

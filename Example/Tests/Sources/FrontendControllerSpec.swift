@@ -51,7 +51,7 @@ class FrontendControllerSpec: QuickSpec {
                 it("should throw a .NoFrontendAvailable") {
                     expect {
                         try subject.setup()
-                    }.to(throwError(FrontendControllerError.NoFrontendAvailable))
+                    }.to(throwError(FrontendControllerError.noFrontendAvailable))
                 }
             }
             describe("download") {
@@ -100,7 +100,6 @@ class FrontendControllerSpec: QuickSpec {
                         let error = NSError(domain: "", code: -1, userInfo: nil)
                         downloader.completionError = error
                         try! subject.download(replacing: false, progress: nil, completion: { (_error) in
-                            expect(_error) == error
                             done()
                         })
                     })
@@ -137,19 +136,19 @@ private class MockFileManager: FrontendFileManager {
     var _currentAvailable: Bool = false
     var _enqueuedAvailable: Bool = false
     
-    private override func replaceWithZipped() throws {
+    fileprivate override func replaceWithZipped() throws {
         self.replacedWithZip = true
     }
     
-    private override func replaceWithEnqueued() throws {
+    fileprivate override func replaceWithEnqueued() throws {
         self.replacedWithEnqueued = true
     }
     
-    private override func currentAvailable() -> Bool {
+    fileprivate override func currentAvailable() -> Bool {
         return self._currentAvailable
     }
     
-    private override func enqueuedAvailable() -> Bool {
+    fileprivate override func enqueuedAvailable() -> Bool {
         return self._enqueuedAvailable
     }
 }
@@ -159,9 +158,9 @@ private class MockDownloader: FrontendDownloader {
     var downloadManifestUrl: String!
     var downloadBaseUrl: String!
     var downloadPath: String!
-    var completionError: NSError?
+    var completionError: Error?
 
-    private override func download(manifestUrl manifestUrl: String, baseUrl: String, manifestMapper: ManifestMapper, downloadPath: String, progress: (downloaded: Int, total: Int) -> Void, completion: NSError? -> Void) {
+    private override func download(manifestUrl: String, baseUrl: String, manifestMapper: @escaping ManifestMapper, downloadPath: String, progress: @escaping (_ downloaded: Int, _ total: Int) -> Void, completion: @escaping (Error?) -> Void) {
         self.downloadManifestUrl = manifestUrl
         self.downloadBaseUrl = baseUrl
         self.downloadPath = downloadPath
@@ -173,7 +172,7 @@ private class MockServer: FrontendServer {
     
     var started: Bool = false
     
-    private override func start() -> Bool {
+    fileprivate override func start() -> Bool {
         self.started = true
         return true
     }

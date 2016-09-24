@@ -1,7 +1,7 @@
 import Foundation
 import SwiftyJSON
 
-public typealias ManifestMapper = String -> (AnyObject -> Manifest)
+public typealias ManifestMapper = (String) -> ((AnyObject) -> Manifest)
 
 internal var DefaultManifestMapper: ManifestMapper = { baseUrl in
     return { input -> Manifest in
@@ -11,7 +11,7 @@ internal var DefaultManifestMapper: ManifestMapper = { baseUrl in
         let gitBranch = json["git_branch"].stringValue
         let timestamp = json["timestamp"].intValue
         var files: [Manifest.File] = []
-        for element in json["files"].enumerate() {
+        for element in json["files"].enumerated() {
             let path: String = element.element.0
             let hash: String = element.element.1.stringValue
             let file: Manifest.File = Manifest.File(path: path, hash: hash)

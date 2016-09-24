@@ -10,6 +10,6 @@ Pod::Spec.new do |s|
   s.source_files = 'Frontend/Classes/**/*'
   s.dependency 'GCDWebServer', '~> 3.3'
   s.dependency 'NSURL+QueryDictionary', '~> 1.2'
-  s.dependency 'SwiftyJSON', '~> 2.3'
-  s.dependency 'Zip', '~> 0.4'
+  s.dependency 'SwiftyJSON', '~> 3.0'
+  s.dependency 'Zip', '~> 0.6'
 end

@@ -1,9 +1,9 @@
 import Foundation
 
-public typealias FrontendProgress = ((downloaded: Int, total: Int) -> Void)
-public typealias FrontendCompletion =  ((NSError?) -> Void)
+public typealias FrontendProgress = ((_ downloaded: Int, _ total: Int) -> Void)
+public typealias FrontendCompletion =  ((Error?) -> Void)
 
-@objc public class FrontendController: NSObject {
+@objc open class FrontendController: NSObject {
     
     // MARK: - Attributes
     
@@ -11,7 +11,7 @@ public typealias FrontendCompletion =  ((NSError?) -> Void)
     internal let fileManager: FrontendFileManager
     internal let downloader: FrontendDownloader
     internal let server: FrontendServer
-    public private(set) var downloading: Bool = false
+    open fileprivate(set) var downloading: Bool = false
     
     // MARK: - Init
     
@@ -37,7 +37,7 @@ public typealias FrontendCompletion =  ((NSError?) -> Void)
     
     // MARK: - Public
     
-    public func setup() throws {
+    open func setup() throws {
         if !self.fileManager.currentAvailable() {
             try self.fileManager.replaceWithZipped()
         }
@@ -45,29 +45,29 @@ public typealias FrontendCompletion =  ((NSError?) -> Void)
             try self.fileManager.replaceWithEnqueued()
         }
         if !self.fileManager.currentAvailable() {
-            throw FrontendControllerError.NoFrontendAvailable
+            throw FrontendControllerError.noFrontendAvailable
         }
         try self.download(replacing: false)
         self.server.start()
     }
     
-    public func url() -> String {
+    open func url() -> String {
         return "http://127.0.0.1:\(self.configuration.port)"
     }
     
-    public func available() -> Bool {
+    open func available() -> Bool {
         return self.fileManager.currentAvailable()
     }
     
-    public func download(replacing replace: Bool, progress: FrontendProgress? = nil, completion: FrontendCompletion? = nil) throws {
+    open func download(replacing replace: Bool, progress: FrontendProgress? = nil, completion: FrontendCompletion? = nil) throws {
         if self.downloading {
-            throw FrontendControllerError.AlreadyDownloading
+            throw FrontendControllerError.alreadyDownloading
         }
         self.downloader.download(manifestUrl: self.configuration.manifestUrl,
                                  baseUrl: self.configuration.baseUrl,
                                  manifestMapper: self.configuration.manifestMapper,
                                  downloadPath: self.fileManager.enqueuedPath(),
-                                 progress: { (downloaded, total) in progress?(downloaded: downloaded, total: total)
+                                 progress: { (downloaded, total) in progress?(downloaded, total)
         }) { [weak self] error in
             self?.downloading = false
             if !replace {

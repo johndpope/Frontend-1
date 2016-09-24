@@ -12,7 +12,7 @@ class FrontendRequestDispatcherSpec: QuickSpec {
         var dataTask: MockSessionDataTask!
         var response: GCDWebServerResponse!
         var responseMapper: MockResponseMapper!
-        var request: NSURLRequest!
+        var request: URLRequest!
         var requestMapper: MockRequestMapper!
         var subject: FrontendRequestDispatcher!
         
@@ -23,7 +23,7 @@ class FrontendRequestDispatcherSpec: QuickSpec {
             response = GCDWebServerResponse()
             responseMapper = MockResponseMapper()
             responseMapper.response = response
-            request = NSURLRequest()
+            request = URLRequest(url: URL(string: "test://test")!)
             requestMapper = MockRequestMapper()
             requestMapper.request = request
             subject = FrontendRequestDispatcher(requestMapper: requestMapper,
@@ -52,9 +52,9 @@ class FrontendRequestDispatcherSpec: QuickSpec {
 
 private class MockRequestMapper: FrontendRequestMapper {
     
-    var request: NSURLRequest!
+    var request: URLRequest!
     
-    private override func map(request request: GCDWebServerRequest) -> NSURLRequest {
+    fileprivate override func map(request: GCDWebServerRequest) -> URLRequest {
         return self.request
     }
 }
@@ -63,28 +63,28 @@ private class MockResponseMapper: FrontendResponseMapper {
     
     var response: GCDWebServerResponse!
     
-    private override func map(data data: NSData?, response: NSURLResponse?, error: NSError?) -> GCDWebServerResponse {
+    fileprivate override func map(data: Data?, response: URLResponse?, error: Error?) -> GCDWebServerResponse {
         return self.response
     }
 }
 
-private class MockSession: NSURLSession {
+private class MockSession: URLSession {
     
     var dataTask: MockSessionDataTask!
     
-    private override func dataTaskWithRequest(request: NSURLRequest, completionHandler: (NSData?, NSURLResponse?, NSError?) -> Void) -> NSURLSessionDataTask {
-        completionHandler(nil, NSURLResponse(), nil)
+    fileprivate override func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
+        completionHandler(nil, URLResponse(), nil)
         return dataTask
 
     }
     
 }
 
-private class MockSessionDataTask: NSURLSessionDataTask {
+private class MockSessionDataTask: URLSessionDataTask {
     
     var resumed: Bool = false
     
-    private override func resume() {
+    fileprivate override func resume() {
         self.resumed = true
     }
 }

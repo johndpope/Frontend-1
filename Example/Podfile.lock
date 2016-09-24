@@ -2,35 +2,35 @@ PODS:
   - Frontend (0.1.0):
     - GCDWebServer (~> 3.3)
     - NSURL+QueryDictionary (~> 1.2)
-    - SwiftyJSON (~> 2.3)
-    - Zip (~> 0.4)
+    - SwiftyJSON (~> 3.0)
+    - Zip (~> 0.6)
   - GCDWebServer (3.3.3):
     - GCDWebServer/Core (= 3.3.3)
   - GCDWebServer/Core (3.3.3)
-  - Nimble (3.2.0)
+  - Nimble (5.0.0)
   - NSURL+QueryDictionary (1.2.0)
-  - Quick (0.9.3)
-  - SwiftyJSON (2.3.2)
-  - Zip (0.4.3)
+  - Quick (0.10.0)
+  - SwiftyJSON (3.0.0)
+  - Zip (0.6.0)
 
 DEPENDENCIES:
   - Frontend (from `../`)
-  - Nimble (~> 3.0)
-  - Quick (~> 0.8)
+  - Nimble (~> 5.0)
+  - Quick (~> 0.10)
 
 EXTERNAL SOURCES:
   Frontend:
     :path: "../"
 
 SPEC CHECKSUMS:
-  Frontend: f3d7be021b218bc4ab1e80b895b3f305ca04f0a2
+  Frontend: 7565ef0338b29bee39da51ffe91de27f69aa5c47
   GCDWebServer: 1c39a1f0763e4eb492bee021e4270fce097d3555
-  Nimble: 703854335d181df169bbca9c97117b5cf8c47c1d
+  Nimble: 56fc9f5020effa2206de22c3dd910f4fb011b92f
   NSURL+QueryDictionary: bae616404e2adf6409d3d5c02a093cbf44c8a236
-  Quick: 13a2a2b19a5d8e3ed4fd0c36ee46597fd77ebf71
-  SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
-  Zip: 670419a5ba9faaf5f24ed3650c4c38b4136e996b
+  Quick: 5d290df1c69d5ee2f0729956dcf0fd9a30447eaa
+  SwiftyJSON: f57b2b44bc166617372d1c70773591fe9f0f5fd4
+  Zip: 805fc2fa9d2f05bbb7762d982d7a42ccdcc51f42
 
-PODFILE CHECKSUM: b2d3fd0414a24431eddea255b2140f8684b629d3
+PODFILE CHECKSUM: 9d217f2f5ad2aaed693806380fdc04f1af0ac43e
 
-COCOAPODS: 1.0.0
+COCOAPODS: 1.1.0.rc.2

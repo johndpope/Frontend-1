@@ -29,14 +29,15 @@ internal class FrontendConfigurator {
     // MARK: - Private
     
     private func configureLocal(directoryPath directoryPath: String, server: GCDWebServer) {
-        server.addGETHandlerForBasePath("/", directoryPath: directoryPath, indexFilename: "index.html", cacheAge: 3600, allowRangeRequests: true)
+        server.addGETHandler(forBasePath: "/", directoryPath: directoryPath, indexFilename: "index.html", cacheAge: 3600, allowRangeRequests: true)
     }
     
     private func configureProxy(server server: GCDWebServer) {
-        server.addHandlerWithMatchBlock({ (method, url, headers, path, query) -> GCDWebServerRequest! in
+        server.addHandler(match: { (method, url, headers, path, query) -> GCDWebServerRequest? in
             return self.proxyRequestMapper.map(method: method, url: url, headers: headers, path: path, query: query, proxyResources: self.proxyResources)
-        }, asyncProcessBlock: { (request, completionBlock) in
-                self.requestDispatcher.dispatch(request: request, completion: completionBlock)
-        })
+            return GCDWebServerRequest()
+        }) { (request, completion) in
+            self.requestDispatcher.dispatch(request: request!, completion: completion!)
+        }
     }
 }

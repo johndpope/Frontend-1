@@ -48,7 +48,7 @@ class FrontendConfiguratorSpec: QuickSpec {
                     expect(proxyRequestMapper.mappedMethod) == "GET"
                 }
                 it("should map the correct url") {
-                    expect(proxyRequestMapper.mappedURL) == NSURL(string: "url")!
+                    expect(proxyRequestMapper.mappedURL) == URL(string: "url")!
                 }
                 it("should map the correct headers") {
                     expect(proxyRequestMapper.mappedHeaders as? [String: String]) == [:]
@@ -75,18 +75,18 @@ class FrontendConfiguratorSpec: QuickSpec {
 private class MockProxyRequestMapper: FrontendProxyRequestMapper {
     
     var mappedMethod: String!
-    var mappedURL: NSURL!
-    var mappedHeaders: [NSObject : AnyObject]!
+    var mappedURL: URL!
+    var mappedHeaders: [AnyHashable: Any]!
     var mappedPath: String!
-    var mappedQuery: [NSObject: AnyObject]!
-    
-    private override func map(method method: String!, url: NSURL!, headers: [NSObject : AnyObject]!, path: String!, query: [NSObject : AnyObject]!, proxyResources proxyResource: [ProxyResource]) -> GCDWebServerRequest? {
+    var mappedQuery: [AnyHashable: Any]!
+
+    private override func map(method: String!, url: URL!, headers: [AnyHashable : Any]!, path: String!, query: [AnyHashable : Any]!, proxyResources: [ProxyResource]) -> GCDWebServerRequest? {
         self.mappedMethod = method
         self.mappedURL = url
         self.mappedHeaders = headers
         self.mappedPath = path
         self.mappedQuery = query
-        return GCDWebServerRequest(method: "GET", url: NSURL(string: "url")!, headers: [:], path: "pepi", query: [:])
+        return GCDWebServerRequest(method: "GET", url: URL(string: "url")!, headers: [:], path: "pepi", query: [:])
     }
     
 }
@@ -95,10 +95,10 @@ private class MockRequestDispatcher: FrontendRequestDispatcher {
     
     var dispatchedRequest: GCDWebServerRequest!
     
-    private override func dispatch(request request: GCDWebServerRequest, completion: GCDWebServerCompletionBlock) {
+    private override func dispatch(request: GCDWebServerRequest, completion: @escaping GCDWebServerCompletionBlock) {
         self.dispatchedRequest = request
     }
-    
+
 }
 
 private class MockGCDServer: GCDWebServer {
@@ -111,7 +111,7 @@ private class MockGCDServer: GCDWebServer {
     
     var returnedRequest: GCDWebServerRequest!
     
-    private override func addGETHandlerForBasePath(basePath: String!, directoryPath: String!, indexFilename: String!, cacheAge: UInt, allowRangeRequests: Bool) {
+    fileprivate override func addGETHandler(forBasePath basePath: String!, directoryPath: String!, indexFilename: String!, cacheAge: UInt, allowRangeRequests: Bool) {
         self.getHandlerBasePath = basePath
         self.getHandlerDirectoryPath = directoryPath
         self.getHandlerIndexFileName = indexFilename
@@ -119,8 +119,8 @@ private class MockGCDServer: GCDWebServer {
         self.getHandlerAllowRangeRequests = allowRangeRequests
     }
     
-    private override func addHandlerWithMatchBlock(matchBlock: GCDWebServerMatchBlock!, asyncProcessBlock processBlock: GCDWebServerAsyncProcessBlock!) {
-        self.returnedRequest = matchBlock("GET", NSURL(string: "url")!, [:], "path", [:])
+    fileprivate override func addHandler(match matchBlock: GCDWebServerMatchBlock!, asyncProcessBlock processBlock: GCDWebServerAsyncProcessBlock!) {
+        self.returnedRequest = matchBlock("GET", URL(string: "url")!, [:], "path", [:])
         processBlock(self.returnedRequest, { _ in })
     }
 }

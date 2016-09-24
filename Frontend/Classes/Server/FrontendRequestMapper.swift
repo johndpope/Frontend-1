@@ -3,13 +3,12 @@ import GCDWebServer
 
 internal class FrontendRequestMapper {
     
-    internal func map(request request: GCDWebServerRequest) -> NSURLRequest {
-        let urlRequest: NSMutableURLRequest = NSMutableURLRequest()
-        urlRequest.URL = request.URL.URLByAppendingPathComponent(request.path)
-        urlRequest.HTTPMethod = request.method
+    internal func map(request: GCDWebServerRequest) -> URLRequest {
+        var urlRequest: URLRequest = URLRequest(url:  request.url.appendingPathComponent(request.path))
+        urlRequest.httpMethod = request.method
         urlRequest.allHTTPHeaderFields = request.headers as? [String: String]
-        urlRequest.HTTPBody = try? NSJSONSerialization.dataWithJSONObject(request.query, options: [])
-        return urlRequest.copy() as! NSURLRequest
+        urlRequest.httpBody = try? JSONSerialization.data(withJSONObject: request.query, options: [])
+        return urlRequest
     }
     
 }
