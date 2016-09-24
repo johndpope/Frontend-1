@@ -8,14 +8,9 @@ Gem::Specification.new do |spec|
   spec.version       = Frontend::VERSION
   spec.authors       = ["Pedro Piñera Buendía"]
   spec.email         = ["pepibumur@gmail.com"]
-
-  spec.summary       = %q{TODO: Write a short summary, because Rubygems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.summary       = %q{Downloads a frontend and zips it to be used with the frontend manager}
+  spec.homepage      = "https://github.com/pepibumur/frontend"
   spec.license       = "MIT"
-
-  # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
-  # to allow pushing to a single host or delete this section to allow pushing to any host.
   if spec.respond_to?(:metadata)
     spec.metadata['allowed_push_host'] = "TODO: Set to 'http://mygemserver.com'"
   else
@@ -29,6 +24,10 @@ Gem::Specification.new do |spec|
   spec.bindir        = "exe"
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
+
+  spec.add_dependency "thor", "~> 0.19"
+  spec.add_dependency 'rubyzip', '>= 1.0.0'
+  spec.add_dependency "rest-client", "~> 2.0"
 
   spec.add_development_dependency "bundler", "~> 1.13"
   spec.add_development_dependency "rake", "~> 10.0"
