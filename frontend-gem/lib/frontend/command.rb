@@ -31,6 +31,7 @@ module Frontend
     protected
 
     def zip(path)
+      puts "==> Zipping to #{@output_zip_file}"
       FileUtils.rm  @output_zip_file, :force => true
       ZipFileGenerator.new(path, @output_zip_file).write
     end

@@ -1,0 +1,7 @@
+{
+  "files": {
+    "a/file.txt": "2222",
+    "b/file.txt": "44444"
+  },
+  "base_url": "https://test.com"
+}
