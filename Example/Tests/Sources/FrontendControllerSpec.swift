@@ -160,7 +160,7 @@ private class MockDownloader: FrontendDownloader {
     var downloadPath: String!
     var completionError: Error?
 
-    private override func download(manifestUrl: String, baseUrl: String, manifestMapper: @escaping ManifestMapper, downloadPath: String, progress: @escaping (_ downloaded: Int, _ total: Int) -> Void, completion: @escaping (Error?) -> Void) {
+    fileprivate override func download(manifestUrl: String, baseUrl: String, manifestMapper: @escaping ManifestMapper, downloadPath: String, progress: @escaping (_ downloaded: Int, _ total: Int) -> Void, completion: @escaping (Error?) -> Void) {
         self.downloadManifestUrl = manifestUrl
         self.downloadBaseUrl = baseUrl
         self.downloadPath = downloadPath

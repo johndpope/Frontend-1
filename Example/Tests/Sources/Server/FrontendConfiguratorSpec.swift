@@ -80,7 +80,7 @@ private class MockProxyRequestMapper: FrontendProxyRequestMapper {
     var mappedPath: String!
     var mappedQuery: [AnyHashable: Any]!
 
-    private override func map(method: String!, url: URL!, headers: [AnyHashable : Any]!, path: String!, query: [AnyHashable : Any]!, proxyResources: [ProxyResource]) -> GCDWebServerRequest? {
+    fileprivate override func map(method: String!, url: URL!, headers: [AnyHashable : Any]!, path: String!, query: [AnyHashable : Any]!, proxyResources: [ProxyResource]) -> GCDWebServerRequest? {
         self.mappedMethod = method
         self.mappedURL = url
         self.mappedHeaders = headers
@@ -95,7 +95,7 @@ private class MockRequestDispatcher: FrontendRequestDispatcher {
     
     var dispatchedRequest: GCDWebServerRequest!
     
-    private override func dispatch(request: GCDWebServerRequest, completion: @escaping GCDWebServerCompletionBlock) {
+    fileprivate override func dispatch(request: GCDWebServerRequest, completion: @escaping GCDWebServerCompletionBlock) {
         self.dispatchedRequest = request
     }
 
